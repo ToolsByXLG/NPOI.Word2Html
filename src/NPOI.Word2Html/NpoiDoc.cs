@@ -8,16 +8,6 @@ namespace NPOI.Word2Html
 {
     public class NpoiDoc
     {
-        private readonly PicturesConvert picturesConvert;
-        private readonly ParaGraphConvert paraGraphConvert;
-        private readonly TableConvert tableConvert;
-
-        public NpoiDoc(PicturesConvert picturesConvert, ParaGraphConvert paraGraphConvert, TableConvert tableConvert)
-        {
-            this.picturesConvert = picturesConvert;
-            this.paraGraphConvert = paraGraphConvert;
-            this.tableConvert = tableConvert;
-        }
 
         /// <summary>
         ///     Npoi处理Docx
@@ -29,7 +19,9 @@ namespace NPOI.Word2Html
         {
             var myDocx = new XWPFDocument(stream); //打开07（.docx）以上的版本的文档
 
-
+            PicturesConvert picturesConvert = new PicturesConvert();
+            ParaGraphConvert paraGraphConvert = new ParaGraphConvert();
+            TableConvert tableConvert = new TableConvert();
             var picInfoList = await picturesConvert.PicturesHandleAsync(myDocx/*, isImgUploadAliYun*/);
 
             var sb = new StringBuilder();

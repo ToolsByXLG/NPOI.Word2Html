@@ -4,27 +4,21 @@ using System.Text;
 
 namespace NPOI.Word2Html.Converter
 {
-    public  class ParaGraphConvert
+    public class ParaGraphConvert
     {
-        private readonly TagPConvert tagPConvert;
-        private readonly DrawingConvert drawingConvert;
-        private readonly FontConvert fontConvert;
-
-        public ParaGraphConvert(TagPConvert tagPConvert, DrawingConvert drawingConvert, FontConvert fontConvert)
+        /// <summary>
+        ///     word文档对应行内容处理
+        /// </summary>
+        /// <param name="paragraph"></param>
+        /// <param name="picInfoList"></param>
+        /// <returns></returns>
+        public StringBuilder ParaGraphHandle(XWPFParagraph paragraph, List<PicInfo> picInfoList)
         {
-            this.tagPConvert = tagPConvert;
-            this.drawingConvert = drawingConvert;
-            this.fontConvert = fontConvert;
-        }
+            TagPConvert tagPConvert = new TagPConvert();
+            DrawingConvert drawingConvert = new DrawingConvert();
+            FontConvert fontConvert = new FontConvert();
 
-            /// <summary>
-            ///     word文档对应行内容处理
-            /// </summary>
-            /// <param name="paragraph"></param>
-            /// <param name="picInfoList"></param>
-            /// <returns></returns>
-            public StringBuilder ParaGraphHandle(XWPFParagraph paragraph, List<PicInfo> picInfoList)
-        {
+
             var sb = new StringBuilder();
 
             #region P标签

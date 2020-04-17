@@ -1,7 +1,6 @@
 ﻿using NPOI.XWPF.UserModel;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NPOI.Word2Html.Converter
