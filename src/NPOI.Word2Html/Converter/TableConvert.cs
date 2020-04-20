@@ -1,12 +1,11 @@
-﻿using NPOI.XWPF.UserModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using NPOI.XWPF.UserModel;
 
 namespace NPOI.Word2Html.Converter
 {
     public class TableConvert
     {
-
         /// <summary>
         ///     word中的表格处理
         /// </summary>
@@ -15,7 +14,7 @@ namespace NPOI.Word2Html.Converter
         /// <returns></returns>
         public StringBuilder TableHandle(XWPFTable paraTable, List<PicInfo> picInfoList)
         {
-            ParaGraphConvert paraGraphConvert = new ParaGraphConvert();
+            var paraGraphConvert = new ParaGraphConvert();
 
             var sb = new StringBuilder();
 
@@ -50,7 +49,7 @@ namespace NPOI.Word2Html.Converter
                     sb.Append("'>");
                     var cellParagraphs = cell.Paragraphs;
                     foreach (var cellParagraph in cellParagraphs)
-                        sb.Append(paraGraphConvert .ParaGraphHandle(cellParagraph, picInfoList));
+                        sb.Append(paraGraphConvert.ParaGraphHandle(cellParagraph, picInfoList));
 
                     //sb.Append(cell.GetText());
                     sb.Append("</td>");
@@ -63,6 +62,5 @@ namespace NPOI.Word2Html.Converter
             sb.Append("</table>");
             return sb;
         }
-
     }
 }

@@ -1,6 +1,5 @@
-﻿using NPOI.OpenXmlFormats.Wordprocessing;
-using System.Text;
-
+﻿using System.Text;
+using NPOI.OpenXmlFormats.Wordprocessing;
 
 namespace NPOI.Word2Html.Converter
 {
@@ -52,7 +51,5 @@ namespace NPOI.Word2Html.Converter
 
             return sb;
         }
-
-
     }
 }

@@ -1,21 +1,33 @@
-﻿using NPOI.XWPF.UserModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NPOI.XWPF.UserModel;
 
 namespace NPOI.Word2Html.Converter
 {
-
     public class PicturesConvert
     {
+        public event Func<byte[], string, string> uploadImgUrlyDelegate;
+
+        /// <summary>
+        ///     先把pData传阿里云得到url  如果有其他方式传改这里 或者转base64
+        /// </summary>
+        /// <param name="imgByte"></param>
+        /// <param name="PicType"></param>
+        /// <returns></returns>
+        private string OnUploadImgUrl(byte[] imgByte, string PicType)
+        {
+            if (uploadImgUrlyDelegate != null) return uploadImgUrlyDelegate(imgByte, PicType);
+
+            return $"data:{PicType};base64,{Convert.ToBase64String(imgByte)}";
+        }
 
         /// <summary>
         ///     图片处理
         /// </summary>
         /// <param name="myDocx"></param>
-        ///// <param name="isImgUploadAliYun">图片是否上传阿里云</param>
         /// <returns></returns>
-        public async Task< List<PicInfo>> PicturesHandleAsync(XWPFDocument myDocx/*, bool isImgUploadAliYun = false*/)
+        public async Task<List<PicInfo>> PicturesHandleAsync(XWPFDocument myDocx)
         {
             var picInfoList = new List<PicInfo>();
             var picturesList = myDocx.AllPictures;
@@ -31,20 +43,14 @@ namespace NPOI.Word2Html.Converter
                 };
 
 
-                //try
-                //{
-                //    if (isImgUploadAliYun)
-                //    {
-                //        //阿里云上传图片方法
-                //        var url = await _binaryObjectManager.SaveAsync(new BinaryObject
-                //        { Bytes = pData, FileName = pictures.FileName, FileType = picInfo.PicType });
-                //        picInfo.Url = url;
-                //    }
-                //}
-                //catch (Exception)
-                //{
-                //    // ignored
-                //}
+                try
+                {
+                    picInfo.Url = OnUploadImgUrl(pData, picInfo.PicType);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
 
                 if (string.IsNullOrWhiteSpace(picInfo.Url))
                     picInfo.Url = $"data:{picInfo.PicType};base64,{Convert.ToBase64String(pData)}";
@@ -53,8 +59,7 @@ namespace NPOI.Word2Html.Converter
                 picInfoList.Add(picInfo);
             }
 
-            return picInfoList;
+            return await Task.FromResult(picInfoList);
         }
-
     }
 }

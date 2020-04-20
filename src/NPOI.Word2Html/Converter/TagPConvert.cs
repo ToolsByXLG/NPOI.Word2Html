@@ -1,7 +1,6 @@
-﻿using NPOI.XWPF.UserModel;
-using System;
+﻿using System;
 using System.Text;
-
+using NPOI.XWPF.UserModel;
 
 namespace NPOI.Word2Html.Converter
 {
@@ -41,6 +40,7 @@ namespace NPOI.Word2Html.Converter
                         fontAlignmentName = "auto";
                         break;
                 }
+
                 //自动和左对齐不需样式
                 if (fontAlignment > 1) sb.Append($"text-align:{fontAlignmentName};");
 
@@ -57,6 +57,5 @@ namespace NPOI.Word2Html.Converter
             sb.Append("'>");
             return sb;
         }
-
     }
 }

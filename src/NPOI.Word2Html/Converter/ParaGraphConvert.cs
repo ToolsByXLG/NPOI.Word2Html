@@ -1,6 +1,6 @@
-﻿using NPOI.XWPF.UserModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using NPOI.XWPF.UserModel;
 
 namespace NPOI.Word2Html.Converter
 {
@@ -14,9 +14,9 @@ namespace NPOI.Word2Html.Converter
         /// <returns></returns>
         public StringBuilder ParaGraphHandle(XWPFParagraph paragraph, List<PicInfo> picInfoList)
         {
-            TagPConvert tagPConvert = new TagPConvert();
-            DrawingConvert drawingConvert = new DrawingConvert();
-            FontConvert fontConvert = new FontConvert();
+            var tagPConvert = new TagPConvert();
+            var drawingConvert = new DrawingConvert();
+            var fontConvert = new FontConvert();
 
 
             var sb = new StringBuilder();
@@ -49,6 +49,5 @@ namespace NPOI.Word2Html.Converter
             sb.Append("</p>");
             return sb;
         }
-
     }
 }
