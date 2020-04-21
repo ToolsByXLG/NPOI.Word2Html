@@ -1,6 +1,9 @@
 ﻿# NPOI.Word2Html
 Transfer word to HTML
 
+word文件转html 带图片处理
+下面是使用实例 委托方法是图片处理,如果不处理直接输出为base64
+
 
         /// <summary>
         ///     上传docx文件转为html代码
@@ -40,4 +43,14 @@ Transfer word to HTML
             var url = _aliyunBinaryObjectManager.SaveAsync(new BinaryObject
             { Bytes = imgByte, FileName = Guid.NewGuid().ToString("N")+"."+ picType.Split('/')[1], FileType = picType }).Result;
             return url;
+        }
+        
+        public class UploadDocxInput
+        {
+                public IFormFile File { get; set; }
+
+                /// <summary>
+                ///     word中图片是否传到阿里云上
+                /// </summary>
+                public bool? IsImgUploadAliYun { get; set; } = false;
         }
